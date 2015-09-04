@@ -50,11 +50,13 @@ describe 'MimeMagic' do
     MimeMagic.by_path('').should.equal nil
   end
 
-  it 'should recognize by magic' do
+  context '#by_magic' do
     Dir['test/files/*'].each do |file|
-      mime = file[11..-1].gsub('.', '/')
-      MimeMagic.by_magic(File.read(file)).should.equal mime
-      MimeMagic.by_magic(File.open(file, 'rb')).should.equal mime
+      it "should recognize #{file}" do
+        mime = file[11..-1].gsub('.', '/')
+        MimeMagic.by_magic(File.read(file)).should.equal mime
+        MimeMagic.by_magic(File.open(file, 'rb')).should.equal mime
+      end
     end
   end
 
